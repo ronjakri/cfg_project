@@ -2,6 +2,8 @@ import csv
 
 # Required task 1. Read the data from the spreadsheet
 
+def read_file():
+
 with open('sales.csv', 'r') as csv_file:
     spreadsheet = csv.DictReader(csv_file)
 
@@ -15,5 +17,9 @@ with open('sales.csv', 'r') as csv_file:
 # Required task 3. Output the total sales across all months
 name = 'London'
 print(f'The total sales across all {len(total_sales)} months are {sum(total_sales)}' + name)
+
+
+
+
 
 
