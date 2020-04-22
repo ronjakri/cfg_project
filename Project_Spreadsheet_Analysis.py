@@ -16,12 +16,6 @@ def read_file():
 
 # Required task 3. Output the total sales across all months
 name = 'London'
-print(f'The total sales across all {len(total_sales)} months are {sum(total_sales)}' + name)
-
-
-
-
-
-
+print(f'The total sales across all {len(total_sales)} months are {sum(total_sales)} {name}.')
 
 
