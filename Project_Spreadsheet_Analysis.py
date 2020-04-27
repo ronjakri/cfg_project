@@ -2,8 +2,11 @@ import csv
 
 
 # Required task 1. Read the data from the spreadsheet
+
 def read_file():
     data = []
+
+
     with open('sales.csv', 'r') as csv_file:
         spreadsheet = csv.DictReader(csv_file)
 
@@ -56,5 +59,33 @@ def read_output():
         for row in spreadsheet:
             print(dict(row))
 
+
+def monthly_changes(data):
+    changes = []
+    for index in range(1, len(data)):
+        previous = int(data[index - 1]['sales'])
+        current = int(data[index]['sales'])
+        sales_change = (current - previous) / previous
+        changes.append(sales_change * 100)
+    print(changes)
+
+# Print averages of sales and expenses
+def calculate_avgs(data):
+    sales = []
+    expenses = []
+    for d in data:
+        sales.append(int(d["sales"]))
+        expenses.append(int(d["expenditure"]))
+
+    avg_sales = sum(sales) / len(sales)
+    avg_expenses = sum(expenses) / len(expenses)
+
+    print(f"Avg sales: {avg_sales}")
+    print(f"Avg expenses: {avg_expenses}")
+
+#Calculate the following: ○ Monthly changes as a percentage ○ The average
+data = read_data()
+monthly_changes(data)
+calculate_avgs(data)
 
 
