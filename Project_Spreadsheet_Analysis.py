@@ -20,8 +20,7 @@ def calculate_sales(data):
         monthly_sales = row['sales']
         total_sales.append(int(monthly_sales))
 
-        # Required task 3. Output the total sales across all months
-
+    # Required task 3. Output the total sales across all months
     print(f'The total sales across all {len(total_sales)} months are {sum(total_sales)}.')
 
     return sum(total_sales)
