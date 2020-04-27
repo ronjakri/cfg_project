@@ -38,7 +38,6 @@ def run():
 
 
 summary_filename = 'Summary_of_results.csv'
-run()
 
 
 def output_spreadsheet(sales_sum):
@@ -84,8 +83,9 @@ def calculate_avgs(data):
     print(f"Avg expenses: {avg_expenses}")
 
 #Calculate the following: ○ Monthly changes as a percentage ○ The average
-data = read_data()
+data = read_file()
 monthly_changes(data)
 calculate_avgs(data)
 
 
+run()
