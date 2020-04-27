@@ -2,39 +2,53 @@ import csv
 
 
 # Required task 1. Read the data from the spreadsheet
-
 def read_file():
+    data = []
     with open('sales.csv', 'r') as csv_file:
         spreadsheet = csv.DictReader(csv_file)
 
-        # Required task 2. Collect all of the sales from each month into a single list
-        total_sales = []
-
         for row in spreadsheet:
-            monthly_sales = row['sales']
-            total_sales.append(int(monthly_sales))
+            data.append(row)
+
+    return data
+
+
+# Required task 2. Collect all of the sales from each month into a single list
+def calculate_sales(data):
+    total_sales = []
+    for row in data:
+        monthly_sales = row['sales']
+        total_sales.append(int(monthly_sales))
 
         # Required task 3. Output the total sales across all months
 
-        print(f'The total sales across all {len(total_sales)} months are {sum(total_sales)}.')
+    print(f'The total sales across all {len(total_sales)} months are {sum(total_sales)}.')
+
+    return sum(total_sales)
 
 
-read_file()
+# Output to spreadsheet
+def run():
+    data = read_file()
+    sales_sum = calculate_sales(data)
+    output_spreadsheet(sales_sum)
+    read_output()
+
 
 summary_filename = 'Summary_of_results.csv'
-def output_spreadsheet():
+run()
+
+
+def output_spreadsheet(sales_sum):
     field_names = ['Summary', 'Value']
-    data = [
-        {'Summary': 'Total sales', 'Value': 45642},
+    output_data = [
+        {'Summary': 'Total sales', 'Value': sales_sum},
     ]
 
     with open(summary_filename, 'w+') as csv_file:
         spreadsheet = csv.DictWriter(csv_file, fieldnames=field_names)
         spreadsheet.writeheader()
-        spreadsheet.writerows(data)
-
-
-output_spreadsheet()
+        spreadsheet.writerows(output_data)
 
 
 def read_output():
@@ -44,4 +58,4 @@ def read_output():
             print(dict(row))
 
 
-read_output()
+
