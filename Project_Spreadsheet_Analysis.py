@@ -37,7 +37,7 @@ def calculate_expenses(data):
     return sum(total_expenses)
 
 
-# Calculate the following: ○ Monthly changes as a percentage ○ The average
+# Calculate the following: ○ Monthly changes as a percentage ○ The average ○ The minimum and maximum sales
 def monthly_changes(data):
     changes = []
     for index in range(1, len(data)):
