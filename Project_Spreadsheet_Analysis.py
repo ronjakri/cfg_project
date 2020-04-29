@@ -23,9 +23,18 @@ def calculate_sales(data):
         total_sales.append(int(monthly_sales))
 
     # Required task 3. Output the total sales across all months
-    print(f'The total sales across all {len(total_sales)} months are {sum(total_sales)}.')
+    # print(f'The total sales across all {len(total_sales)} months are {sum(total_sales)}.')
 
-    return sum(total_sales)
+    return len(total_sales), sum(total_sales)
+
+
+# Calculate total expenditures
+def calculate_expenses(data):
+    total_expenses = []
+    for row in data:
+        monthly_expenses = row['expenditure']
+        total_expenses.append(int(monthly_expenses))
+    return sum(total_expenses)
 
 
 # Calculate the following: ○ Monthly changes as a percentage ○ The average
@@ -49,8 +58,8 @@ def calculate_avgs(data):
     avg_sales = sum(sales) / len(sales)
     avg_expenses = sum(expenses) / len(expenses)
 
-    print(f"Avg sales: {avg_sales}")
-    print(f"Avg expenses: {avg_expenses}")
+    # print(f"Avg sales: {avg_sales} \nAvg expenses: {avg_expenses}")
+    return avg_sales, avg_expenses
 
 
 def LoHi_sales(data):
@@ -58,10 +67,11 @@ def LoHi_sales(data):
     for index in data:
         x.append(int(index['sales']))
 
-    sales = [min(x), max(x)]
+    min_sale = min(x)
+    max_sale = max(x)
 
-    print("The lowest sale is: ", min(x), "\nThe highest sale is: ", max(x))
-    return sales
+    # print("The lowest sale is: ", min(x), "\nThe highest sale is: ", max(x))
+    return min_sale, max_sale
 
 
 # Plot graph for sales and expenditures
@@ -83,7 +93,7 @@ def plot_graph(data):
 
 
 def ask_for_graph(data):
-    user = input("Do you want to see the graph? (y/n) ")
+    user = input("Do you want to see a graph for all months? (y/n) ")
     if user == 'y':
         plot_graph(data)
 
@@ -101,10 +111,16 @@ def ask_for_month(data):
 summary_filename = 'Summary_of_results.csv'
 
 
-def output_spreadsheet(sales_sum):
+def output_spreadsheet(no_months, sales_sum, expenses_sum, min_sale, max_sale, avg_sale, avg_exp):
     field_names = ['Summary', 'Value']
     output_data = [
+        {'Summary': 'Number of months', 'Value': no_months},
         {'Summary': 'Total sales', 'Value': sales_sum},
+        {'Summary': 'Total expenses', 'Value': expenses_sum},
+        {'Summary': 'Minimum sale', 'Value': min_sale},
+        {'Summary': 'Maximum sale', 'Value': max_sale},
+        {'Summary': 'Average sale', 'Value': avg_sale},
+        {'Summary': 'Average expenditure', 'Value': avg_exp},
     ]
 
     with open(summary_filename, 'w+') as csv_file:
@@ -122,10 +138,11 @@ def read_output():
 
 def run():
     data = read_file()
-    sales_sum = calculate_sales(data)
-    LoHi_sales(data)
-    calculate_avgs(data)
-    output_spreadsheet(sales_sum)
+    no_months, sales_sum = calculate_sales(data)
+    expenses_sum = calculate_expenses(data)
+    min_sale, max_sale = LoHi_sales(data)
+    avg_sale, avg_exp = calculate_avgs(data)
+    output_spreadsheet(no_months, sales_sum, expenses_sum, min_sale, max_sale, avg_sale, avg_exp)
     read_output()
     monthly_changes(data)
     ask_for_month(data)
