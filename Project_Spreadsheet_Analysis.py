@@ -23,7 +23,7 @@ def calculate_sales(data):
         total_sales.append(int(monthly_sales))
 
     # Required task 3. Output the total sales across all months
-    # print(f'The total sales across all {len(total_sales)} months are {sum(total_sales)}.')
+    print(f'The total sales across all {len(total_sales)} months are {sum(total_sales)}.')
 
     return len(total_sales), sum(total_sales)
 
@@ -58,7 +58,7 @@ def calculate_avgs(data):
     avg_sales = sum(sales) / len(sales)
     avg_expenses = sum(expenses) / len(expenses)
 
-    # print(f"Avg sales: {avg_sales} \nAvg expenses: {avg_expenses}")
+    print(f"Avg sales: {avg_sales} \nAvg expenses: {avg_expenses}")
     return avg_sales, avg_expenses
 
 
@@ -70,7 +70,7 @@ def LoHi_sales(data):
     min_sale = min(x)
     max_sale = max(x)
 
-    # print("The lowest sale is: ", min(x), "\nThe highest sale is: ", max(x))
+    print("The lowest sale is: ", min(x), "\nThe highest sale is: ", max(x))
     return min_sale, max_sale
 
 
@@ -143,7 +143,7 @@ def run():
     min_sale, max_sale = LoHi_sales(data)
     avg_sale, avg_exp = calculate_avgs(data)
     output_spreadsheet(no_months, sales_sum, expenses_sum, min_sale, max_sale, avg_sale, avg_exp)
-    read_output()
+    # read_output()
     monthly_changes(data)
     ask_for_month(data)
     ask_for_graph(data)
