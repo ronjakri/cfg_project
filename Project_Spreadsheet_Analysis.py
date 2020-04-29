@@ -23,6 +23,7 @@ def calculate_sales(data):
         monthly_sales = row['sales']
         total_sales.append(int(monthly_sales))
 
+
     # Required task 3. Output the total sales across all months
     print(f'The total sales across all {len(total_sales)} months are {sum(total_sales)}.')
 
@@ -52,12 +53,16 @@ def output_spreadsheet(sales_sum):
         spreadsheet.writerows(output_data)
 
 
+
+
 def read_output():
     with open(summary_filename, 'r') as csv_file:
         spreadsheet = csv.DictReader(csv_file)
         for row in spreadsheet:
             print(dict(row))
 
+
+run()
 
 def monthly_changes(data):
     changes = []
@@ -88,4 +93,67 @@ monthly_changes(data)
 calculate_avgs(data)
 
 
-run()
+
+
+
+
+
+
+
+
+
+import matplotlib.pyplot as plt
+
+
+
+def LoHi_sales(data):
+    x = []
+    for index in data:
+        x.append(int(index['sales']))
+
+    sales = [min(x), max(x)]
+
+    print("The lowest sale is: ", min(x), "\nThe highest sale is: ", max(x))
+    return sales
+
+
+
+def graph(data):
+
+    x = []
+    y1 = []
+    y2 = []
+    for index in data:
+        x.append(index['month'])
+        y1.append(int(index['sales']))
+        y2.append(int(index['expenditure']))
+    plt.ylabel('sales and expenditure')
+    plt.xlabel('months')
+    plt.title('Sales and Expenditure by Month')
+    plt.bar(x,y1, label = 'sales', color = 'blue', align = 'edge', width = 0.3,  )
+    plt.bar(x,y2, label = 'expen.', color = 'green', width = 0.3)
+    plt.legend()
+    plt.show()
+
+
+
+data = read_file()
+LoHi_sales(data)
+
+
+user = input("Do you want to see the graph? (y/n) ")
+if user == 'y':
+    graph(data)
+
+
+def asking_user():
+
+    user = input("Which month do you want to display? ")
+
+    for index in range(0, len(data)):
+        if user == data[index]['month']:
+            print(f"The sale in {user} was ", int(data[index]['sales']))
+            print(f"The expenditure in {user} was ", int(data[index]['expenditure']))
+
+asking_user()
+
